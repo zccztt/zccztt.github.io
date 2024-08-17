@@ -1,0 +1,113 @@
+# Site settings
+title: ZTT's Blog
+SEOTitle: 张兔兔的小博客 | ZTT's Blog
+header-img: img/post-bg-desk.jpg
+email: yczh.0601@gmail.com
+description: "Home is a warm harbor. Blogging is a source of comfort for the soul."
+keyword: "ZTT's Blog, 张兔兔的小博客, zccztt, 张兔兔, java, python, go; Technology Blog | Technology Sharing"
+url: "http://zcctt.github.io"          # your host, for absolute URL
+baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
+github_repo: "https://github.com/zccztt/zccztt.github.io.git" # you code repository
+
+# Sidebar settings
+sidebar: true                           # whether or not using Sidebar.
+sidebar-about-description: "Goals determine what you going to be!"
+sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
+
+
+
+# SNS settings
+RSS: false
+# weibo_username:     
+zhihu_username:     zccztt
+github_username:    zccztt
+csdn_username:      zccztt.blog.csdn.net
+juejin_username:    4453472002649278
+
+
+
+
+# Build settings
+# from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
+permalink: pretty
+paginate: 10
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+
+
+# Gems
+# from PR#40, to support local preview for Jekyll 3.0
+gems: [jekyll-paginate]
+
+
+
+
+# Markdown settings
+# replace redcarpet to kramdown,
+# although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
+# document: http://jekyllrb.com/docs/configuration/#kramdown
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  input: GFM                            # use Github Flavored Markdown !important
+
+
+
+# 评论系统
+# Disqus（https://disqus.com/）
+# disqus_username: zccztt
+
+# Gitalk
+gitalk:
+  enable: true    #是否开启Gitalk评论
+  clientID: Ov23ctZ3o13e2OCcrMpn                            #生成的clientID
+  clientSecret: f4957ab4e9d99120e187b059f9136b300bfefe4e    #生成的clientSecret
+  repo: zcctt.github.io    #仓库名称
+  owner: zccztt    #github用户名
+  admin: zccztt
+  distractionFreeMode: true #是否启用类似FB的阴影遮罩
+
+
+# 统计
+
+# Analytics settings
+# Baidu Analytics
+ba_track_id: dc504b017748ad579b217df45efc2334
+
+# Google Analytics
+ga_track_id: 'G-N0NY42XEKY'            # Format: G-xxxxxxx
+ga_domain: ccztt.cn               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+
+
+
+
+
+# Featured Tags
+featured-tags: true                     # 是否使用首页标签
+featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
+
+
+
+# Progressive Web Apps
+chrome-tab-theme-color: "#000000"
+service-worker: true
+
+
+
+# Friends
+# friends: [
+#     {
+#         title: "xx",
+#         href: "http://xx.com"
+#     },{
+#         title: "xx",
+#         href: "http://www.xx.com/d"
+#     },{
+#         title: "x",
+#         href: "https://x.com"
+#     },{
+#         title: "x",
+#         href: "https://x.x.com/"
+#     }
+# ]
