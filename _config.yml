@@ -5,7 +5,7 @@ header-img: img/post-bg-desk.jpg
 email: yczh.0601@gmail.com
 description: "Home is a warm harbor. Blogging is a source of comfort for the soul."
 keyword: "ZTT's Blog, 张兔兔的小博客, zccztt, 张兔兔, java, python, go; Technology Blog | Technology Sharing"
-url: "http://zcctt.github.io"          # your host, for absolute URL
+url: "http://zccztt.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/zccztt/zccztt.github.io.git" # you code repository
 
@@ -61,7 +61,7 @@ gitalk:
   enable: false    #是否开启Gitalk评论
   clientID:                             #生成的clientID
   clientSecret:     #生成的clientSecret
-  repo: zcctt.github.io    #仓库名称
+  repo: zccztt.github.io    #仓库名称
   owner: zccztt    #github用户名
   admin: zccztt
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
@@ -71,7 +71,7 @@ gitalk:
 # Reference:https://utteranc.es/
 utterances:
   enable: true
-  repo: zcctt.github.io
+  repo: zccztt.github.io
   issue_term: title
   label: utterances
   theme: github-dark
