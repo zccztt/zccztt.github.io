@@ -71,7 +71,7 @@ gitalk:
 # Reference:https://utteranc.es/
 utterances:
   enable: true
-  repo: zccztt.github.io
+  repo: zccztt/zccztt.github.io
   issue_term: title
   label: utterances
   theme: github-dark
