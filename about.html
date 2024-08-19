@@ -120,6 +120,24 @@ header-img: "img/post-bg-rwd.jpg"
 {% endif %}
 <!-- Gitalk end -->
 
+<!-- utterances -->
+{% if site.utterances.enable %}
+<!-- utterances.js -->
+<script src="https://utteranc.es/client.js"></script>
+
+<div id="utterances-container"></div>
+<script type="text/javascript">
+    var utterances = new Utterances({
+        repo: '{{site.utterances.repo}}',
+        label: '{{site.utterances.label}}',
+        theme: ['{{site.utterances.theme}}'],
+        crossorigin: ['{{site.utterances.crossorigin}}']
+    });
+    utterances.render('utterances-container');
+</script>
+{% endif %}
+<!-- utterances end -->
+
  <!-- disqus 评论框 start  -->
 {% if site.disqus.enable %}
 

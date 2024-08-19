@@ -41,8 +41,6 @@ anchorjs: true                          # if you want to customize anchor. check
 gems: [jekyll-paginate]
 
 
-
-
 # Markdown settings
 # replace redcarpet to kramdown,
 # although redcarpet can auto highlight code, the lack of header-id make the catalog impossible, so I switch to kramdown
@@ -60,14 +58,24 @@ kramdown:
 
 # Gitalk
 gitalk:
-  enable: true    #是否开启Gitalk评论
-  clientID: Ov23ctZ3o13e2OCcrMpn                            #生成的clientID
-  clientSecret: f4957ab4e9d99120e187b059f9136b300bfefe4e    #生成的clientSecret
+  enable: false    #是否开启Gitalk评论
+  clientID:                             #生成的clientID
+  clientSecret:     #生成的clientSecret
   repo: zcctt.github.io    #仓库名称
   owner: zccztt    #github用户名
   admin: zccztt
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
+# utterances
+# 基于 GitHub Issues
+# Reference:https://utteranc.es/
+utterances:
+  enable: true
+  repo: zcctt.github.io
+  issue_term: title
+  label: utterances
+  theme: github-dark
+  crossorigin: anonymous
 
 # 统计
 
