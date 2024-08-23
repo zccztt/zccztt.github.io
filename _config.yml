@@ -4,7 +4,7 @@ SEOTitle: 张兔兔的小博客 | ZTT's Blog
 header-img: img/post-bg-desk.jpg
 email: yczh.0601@gmail.com
 description: "Home is a warm harbor. Blogging is a source of comfort for the soul."
-keyword: "ZTT's Blog, 张兔兔的小博客, zccztt, 张兔兔, java, python, go; Technology Blog | Technology Sharing"
+keyword: "ZTT's Blog, 张兔兔的小博客, zccztt, 张兔兔, java, python, go; Technology Blog | Technology Sharing" #关键词
 url: "http://zccztt.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/zccztt/zccztt.github.io.git" # you code repository
