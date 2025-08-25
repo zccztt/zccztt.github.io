@@ -85,7 +85,7 @@ ba_track_id: dc504b017748ad579b217df45efc2334
 
 # Google Analytics
 ga_track_id: 'G-N0NY42XEKY'            # Format: G-xxxxxxx
-ga_domain: ccztt.cn               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
+ga_domain: ccztt.ccwu.cc               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
 
 
