@@ -86,70 +86,15 @@ zccztt.github.io-main/
 2. **自动部署**
    GitHub Pages 会自动构建和部署你的博客
 
-## 📝 写作指南
-
-### 创建新文章
-
-1. 在 `_posts/` 目录下创建新的 Markdown 文件
-2. 文件名格式：`YYYY-MM-DD-title.md`
-3. 添加 Front Matter：
-
-```yaml
----
-layout: post
-title: "文章标题"
-subtitle: "文章副标题"
-date: 2024-01-01
-author: "ZTT"
-header-img: "img/post-bg.jpg"
-catalog: true
-tags:
-  - 技术
-  - 编程
----
-```
-
-### 文章格式
-
-- 使用 Markdown 语法
-- 支持代码高亮
-- 支持数学公式
-- 支持图片和视频
-
-### 标签管理
-
-- 在文章 Front Matter 中添加 `tags`
-- 标签会自动生成标签页面
-- 支持标签云显示
-
-## 🎯 功能特性
-
-### 文章功能
-- ✅ 文章列表和分页
-- ✅ 文章分类和标签
-- ✅ 文章搜索
-- ✅ 相关文章推荐
-- ✅ 文章目录导航
-
-### 交互功能
-- ✅ 评论系统 (Utterances)
-- ✅ 访问统计
-- ✅ 社交分享
-- ✅ 回到顶部
-- ✅ 夜间模式
-
-### 性能功能
-- ✅ 图片懒加载
-- ✅ 资源压缩
-- ✅ 缓存优化
-- ✅ 离线支持
-- ✅ 性能监控
-
 ### 浏览器支持
 - ✅ Chrome 60+
 - ✅ Firefox 55+
 - ✅ Safari 12+
 - ✅ Edge 79+
+
+#  了解更多
+参见[wiki](https://github.com/zccztt/zccztt.github.io/wiki)
+
 
 ## 🤝 贡献指南
 
