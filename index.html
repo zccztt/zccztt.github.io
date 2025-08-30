@@ -3,10 +3,44 @@ layout: page
 description: "Life has no rehearsals, every day is a live broadcast."
 ---
 
-{% for post in paginator.posts %}
-<div class="post-preview">
-    <a href="{{ post.url | prepend: site.baseurl }}">
-        <h2 class="post-title">
+<!-- 粒子背景 -->
+<div class="particles-bg">
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+</div>
+
+<!-- 跳过导航链接 -->
+<a href="#main-content" class="skip-link sr-only">跳到主要内容</a>
+
+<!-- 欢迎区域 -->
+<section class="welcome-section" aria-labelledby="welcome-title">
+    <div class="welcome-content">
+        <h1 id="welcome-title" class="welcome-title neon-text">欢迎来到我的博客</h1>
+        <p class="welcome-subtitle">分享技术，记录生活，探索世界</p>
+        <div class="welcome-stats" role="list" aria-label="博客特色">
+            <span class="stat-item" role="listitem">📚 技术分享</span>
+            <span class="stat-item" role="listitem">💡 学习笔记</span>
+            <span class="stat-item" role="listitem">🌟 生活感悟</span>
+            <a href="demo.html" class="stat-item" role="listitem" style="text-decoration: none; color: inherit;">🎨 炫酷演示</a>
+        </div>
+    </div>
+</section>
+
+<!-- 文章列表 -->
+<main id="main-content" class="posts-section" role="main">
+    <h2 class="section-title neon-text">最新文章</h2>
+    {% for post in paginator.posts %}
+<article class="post-preview" aria-labelledby="post-title-{{ forloop.index }}">
+    <a href="{{ post.url | prepend: site.baseurl }}" aria-describedby="post-meta-{{ forloop.index }}">
+        <h2 id="post-title-{{ forloop.index }}" class="post-title">
             {{ post.title }}
         </h2>
         {% if post.subtitle %}
@@ -18,39 +52,48 @@ description: "Life has no rehearsals, every day is a live broadcast."
             {{ post.content | strip_html | truncate:200 }}
         </div>
     </a>
-    <p class="post-meta">
-        Posted by {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %} on {{ post.date | date: "%B %-d, %Y" }}
+    <p id="post-meta-{{ forloop.index }}" class="post-meta" aria-label="文章信息">
+        <span class="sr-only">发布于</span>
+        {% if post.author %}{{ post.author }}{% else %}{{ site.title }}{% endif %}
+        <span class="sr-only">于</span>
+        {{ post.date | date: "%B %-d, %Y" }}
     </p>
-</div>
-<hr>
+</article>
+<hr aria-hidden="true">
 {% endfor %}
 
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}
-<ul class="pager">
-    {% if paginator.previous_page %}
-    <li class="previous">
-        <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Newer Posts</a>
-    </li>
-    {% endif %}
-    {% if paginator.next_page %}
-    <li class="next">
-        <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older Posts &rarr;</a>
-    </li>
-    {% endif %}
-</ul>
+<nav class="pager" aria-label="文章分页">
+    <ul class="pager">
+        {% if paginator.previous_page %}
+        <li class="previous">
+            <a href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="上一页：较新的文章">
+                <span aria-hidden="true">&larr;</span> Newer Posts
+            </a>
+        </li>
+        {% endif %}
+        {% if paginator.next_page %}
+        <li class="next">
+            <a href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="下一页：较旧的文章">
+                Older Posts <span aria-hidden="true">&rarr;</span>
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
 {% endif %}
 
-<!--不算子网站访客统计-->
+<!-- 访问统计 -->
 <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>
-<!-- pv的方式，单个用户连续点击n篇文章，记录n次访问量 -->
-<div align="center">
-	<span id="busuanzi_container_site_pv" style="font-family:Consolas;color:Silver;font-size:12px;">
-		View:<span id="busuanzi_value_site_pv" style="font-family:Consolas;color:Silver;font-size:12px;"></span>
-	</span>
-    <!-- uv的方式，单个用户连续点击n篇文章，只记录1次访客数 -->
-    <span id="busuanzi_container_site_uv" style="font-family:Consolas;color:Silver;font-size:12px;">
-		User:<span id="busuanzi_value_site_uv" style="font-family:Consolas;color:Silver;font-size:12px;"></span>
-	</span>
+<div class="site-stats" aria-label="网站访问统计">
+    <span id="busuanzi_container_site_pv" aria-label="页面浏览量">
+        <span class="sr-only">页面浏览量：</span>
+        <span id="busuanzi_value_site_pv"></span>
+    </span>
+    <span id="busuanzi_container_site_uv" aria-label="访客数">
+        <span class="sr-only">访客数：</span>
+        <span id="busuanzi_value_site_uv"></span>
+    </span>
 </div>
