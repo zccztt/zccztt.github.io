@@ -1,0 +1,353 @@
+/* 无障碍优化样式 */
+
+/* 1. 焦点管理 */
+*:focus {
+    outline: 3px solid #667eea !important;
+    outline-offset: 2px !important;
+    border-radius: 2px;
+}
+
+/* 移除默认焦点样式，使用自定义样式 */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 3px solid #667eea !important;
+    outline-offset: 2px !important;
+}
+
+/* 2. 高对比度模式支持 */
+@media (prefers-contrast: high) {
+    .post-preview {
+        border: 2px solid #000;
+        background: #fff;
+    }
+    
+    .navbar-default {
+        background: #000 !important;
+        border-bottom: 2px solid #fff;
+    }
+    
+    .navbar-default .navbar-nav > li > a {
+        color: #fff !important;
+        border: 1px solid transparent;
+    }
+    
+    .navbar-default .navbar-nav > li > a:hover {
+        background: #fff !important;
+        color: #000 !important;
+        border-color: #000;
+    }
+}
+
+/* 3. 减少动画模式 */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    
+    .post-preview:hover {
+        transform: none !important;
+    }
+    
+    .navbar-default .navbar-nav > li > a:hover {
+        transform: none !important;
+    }
+    
+    .welcome-section::before {
+        animation: none !important;
+    }
+}
+
+/* 4. 键盘导航优化 */
+.post-preview:focus-within {
+    box-shadow: 0 0 0 3px #667eea, 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: translateY(-5px);
+}
+
+.navbar-nav > li > a:focus {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-radius: 8px;
+    transform: translateY(-2px);
+}
+
+/* 5. 屏幕阅读器优化 */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* 6. 跳过导航链接 */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #667eea;
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    z-index: 10000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+/* 7. 更好的颜色对比度 */
+.post-preview > a > .post-title {
+    color: #1a1a1a; /* 更深的颜色，提高对比度 */
+}
+
+.post-content-preview {
+    color: #333; /* 提高对比度 */
+}
+
+.post-meta {
+    color: #555; /* 提高对比度 */
+}
+
+/* 8. 链接状态指示 */
+a:visited {
+    color: #551a8b;
+}
+
+a:hover,
+a:focus {
+    text-decoration: underline;
+}
+
+/* 9. 表单元素优化 */
+input, textarea, select {
+    font-size: 16px; /* 防止iOS缩放 */
+}
+
+/* 10. 图片替代文本优化 */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* 11. 列表样式优化 */
+ul, ol {
+    padding-left: 2em;
+}
+
+/* 12. 表格优化 */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+/* 13. 代码块优化 */
+pre, code {
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    padding: 2px 4px;
+    font-family: 'Courier New', monospace;
+}
+
+pre {
+    padding: 16px;
+    overflow-x: auto;
+}
+
+/* 14. 引用块优化 */
+blockquote {
+    border-left: 4px solid #667eea;
+    margin: 0;
+    padding-left: 16px;
+    font-style: italic;
+    background-color: #f9f9f9;
+    padding: 16px;
+    border-radius: 4px;
+}
+
+/* 15. 错误和成功状态 */
+.error {
+    color: #d32f2f;
+    background-color: #ffebee;
+    border: 1px solid #ffcdd2;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.success {
+    color: #388e3c;
+    background-color: #e8f5e8;
+    border: 1px solid #c8e6c9;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+/* 16. 加载状态 */
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 20px;
+    height: 20px;
+    margin: -10px 0 0 -10px;
+    border: 2px solid #f3f3f3;
+    border-top: 2px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* 17. 打印样式优化 */
+@media print {
+    .navbar-default,
+    .welcome-section,
+    .scroll-to-top,
+    .pager {
+        display: none !important;
+    }
+    
+    body {
+        background: white !important;
+        color: black !important;
+    }
+    
+    .post-preview {
+        box-shadow: none !important;
+        border: 1px solid #ccc !important;
+        page-break-inside: avoid;
+    }
+    
+    a {
+        color: black !important;
+        text-decoration: underline !important;
+    }
+    
+    a[href^="http"]:after {
+        content: " (" attr(href) ")";
+    }
+}
+
+/* 18. 大字体模式支持 */
+@media (min-resolution: 2dppx) {
+    body {
+        font-size: 16px;
+    }
+}
+
+/* 19. 触摸目标大小优化 */
+button,
+a,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    min-height: 44px;
+    min-width: 44px;
+}
+
+/* 20. 语义化标记优化 */
+main {
+    outline: none;
+}
+
+section {
+    outline: none;
+}
+
+article {
+    outline: none;
+}
+
+/* 21. 动态内容更新通知 */
+[aria-live="polite"] {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+[aria-live="assertive"] {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+/* 22. 自定义滚动条（保持无障碍性） */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #667eea;
+    border-radius: 6px;
+    border: 2px solid #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #5a6fd8;
+}
+
+/* 23. 焦点可见性增强 */
+.focus-visible {
+    outline: 3px solid #667eea !important;
+    outline-offset: 2px !important;
+}
+
+/* 24. 错误边界样式 */
+.error-boundary {
+    border: 2px solid #d32f2f;
+    background-color: #ffebee;
+    padding: 16px;
+    margin: 16px 0;
+    border-radius: 4px;
+}
+
+/* 25. 无障碍标签优化 */
+[role="button"] {
+    cursor: pointer;
+}
+
+[role="button"]:focus {
+    outline: 3px solid #667eea !important;
+    outline-offset: 2px !important;
+}

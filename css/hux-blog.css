@@ -1089,3 +1089,89 @@ img::-moz-selection {
 .page-fullscreen footer .copyright a:hover {
   color: #ddd;
 }
+/* 导航栏美化 */
+.navbar-default {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.navbar-default .navbar-brand {
+    color: white !important;
+    font-weight: 600;
+    font-size: 20px;
+    transition: all 0.3s ease;
+}
+
+.navbar-default .navbar-brand:hover {
+    color: #f8f9fa !important;
+    transform: scale(1.05);
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 15px 20px;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transform: translateY(-2px);
+}
+
+.navbar-default .navbar-nav > li > a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+.navbar-default .navbar-nav > li > a:hover::after {
+    width: 80%;
+}
+
+.navbar-toggle {
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.navbar-toggle:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.1);
+}
+
+.navbar-toggle .icon-bar {
+    background: white;
+    transition: all 0.3s ease;
+}
+
+/* 导航栏滚动效果 */
+.navbar-default.navbar-shrink {
+    background: rgba(102, 126, 234, 0.95);
+    backdrop-filter: blur(10px);
+}
+
+/* 移动端导航优化 */
+@media (max-width: 768px) {
+    .navbar-default .navbar-nav > li > a {
+        padding: 12px 15px;
+        border-radius: 6px;
+        margin: 2px 0;
+    }
+    
+    .navbar-default .navbar-nav > li > a:hover {
+        background: rgba(255, 255, 255, 0.15);
+    }
+}

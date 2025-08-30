@@ -1,0 +1,716 @@
+/* 炫酷现代化样式 - 完全重写 */
+
+/* 动态背景动画 */
+body {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* 粒子背景效果 */
+.particles-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+}
+
+.particle:nth-child(1) { left: 10%; animation-delay: 0s; }
+.particle:nth-child(2) { left: 20%; animation-delay: 2s; }
+.particle:nth-child(3) { left: 30%; animation-delay: 4s; }
+.particle:nth-child(4) { left: 40%; animation-delay: 1s; }
+.particle:nth-child(5) { left: 50%; animation-delay: 3s; }
+.particle:nth-child(6) { left: 60%; animation-delay: 5s; }
+.particle:nth-child(7) { left: 70%; animation-delay: 2s; }
+.particle:nth-child(8) { left: 80%; animation-delay: 4s; }
+.particle:nth-child(9) { left: 90%; animation-delay: 1s; }
+.particle:nth-child(10) { left: 95%; animation-delay: 3s; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.5; }
+    50% { transform: translateY(-100px) rotate(180deg); opacity: 1; }
+}
+
+/* 主容器玻璃态效果 */
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.container:hover::before {
+    left: 100%;
+}
+
+/* 导航栏炫酷效果 */
+.navbar-default {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    border: none;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.navbar-default .navbar-brand {
+    color: #00ffff !important;
+    font-weight: 700;
+    font-size: 24px;
+    text-shadow: 0 0 10px #00ffff;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.navbar-default .navbar-brand::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    background-size: 400% 400%;
+    animation: rainbow 3s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.navbar-default .navbar-brand:hover::before {
+    opacity: 1;
+}
+
+@keyframes rainbow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #ffffff !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 0 5px;
+}
+
+.navbar-default .navbar-nav > li > a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    border-radius: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.navbar-default .navbar-nav > li > a:hover::before {
+    opacity: 1;
+}
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: #000000 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(255, 0, 255, 0.4);
+}
+
+/* 欢迎区域炫酷效果 */
+.welcome-section {
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
+    border: 2px solid transparent;
+    border-radius: 20px;
+    padding: 50px;
+    margin-bottom: 40px;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-section::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff00ff);
+    border-radius: 20px;
+    z-index: -1;
+    animation: borderGlow 3s ease infinite;
+}
+
+@keyframes borderGlow {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.welcome-title {
+    font-size: 3em;
+    font-weight: 800;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+    background-size: 200% 200%;
+    animation: textGlow 2s ease infinite;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+@keyframes textGlow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.welcome-subtitle {
+    font-size: 1.3em;
+    margin-bottom: 30px;
+    opacity: 0.9;
+    font-weight: 300;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.welcome-stats {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.stat-item {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 15px 25px;
+    border-radius: 25px;
+    font-size: 1em;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.stat-item:hover::before {
+    left: 100%;
+}
+
+.stat-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-5px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border-color: #00ffff;
+}
+
+/* 文章卡片炫酷效果 */
+.post-preview {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    margin-bottom: 30px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+    transform-style: preserve-3d;
+}
+
+.post-preview::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.post-preview:hover {
+    transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: #00ffff;
+}
+
+.post-preview:hover::before {
+    opacity: 0.1;
+}
+
+.post-preview > a {
+    color: #ffffff;
+    text-decoration: none;
+    display: block;
+}
+
+.post-preview > a:hover {
+    text-decoration: none;
+    color: #00ffff;
+}
+
+.post-preview > a > .post-title {
+    font-size: 26px;
+    line-height: 1.4;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-weight: 700;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.post-preview:hover > a > .post-title {
+    color: #00ffff;
+    text-shadow: 0 0 20px #00ffff;
+}
+
+.post-preview > a > .post-subtitle {
+    font-size: 16px;
+    line-height: 1.5;
+    margin: 0 0 15px 0;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.post-content-preview {
+    font-size: 14px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 15px;
+}
+
+.post-meta {
+    font-family: 'Segoe UI', sans-serif;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 14px;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.post-meta::before {
+    content: '🌟';
+    font-style: normal;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* 分页器炫酷效果 */
+.pager {
+    margin: 40px 0;
+}
+
+.pager li > a {
+    border-radius: 25px;
+    padding: 15px 30px;
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    border: none;
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 0, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.pager li > a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.pager li > a:hover::before {
+    left: 100%;
+}
+
+.pager li > a:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 0, 255, 0.5);
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+}
+
+/* 访问统计炫酷效果 */
+#busuanzi_container_site_pv,
+#busuanzi_container_site_uv {
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    color: white !important;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 14px !important;
+    font-family: 'Segoe UI', sans-serif !important;
+    margin: 0 10px;
+    box-shadow: 0 5px 15px rgba(255, 0, 255, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+#busuanzi_container_site_pv::before,
+#busuanzi_container_site_uv::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+#busuanzi_container_site_pv:hover::before,
+#busuanzi_container_site_uv:hover::before {
+    left: 100%;
+}
+
+#busuanzi_container_site_pv:hover,
+#busuanzi_container_site_uv:hover {
+    transform: translateY(-3px) scale(1.1);
+    box-shadow: 0 10px 25px rgba(255, 0, 255, 0.5);
+}
+
+#busuanzi_value_site_pv,
+#busuanzi_value_site_uv {
+    color: white !important;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+/* 文章列表区域样式 */
+.posts-section {
+    margin-top: 40px;
+}
+
+.section-title {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: #ffffff;
+    text-align: center;
+    margin-bottom: 40px;
+    position: relative;
+    padding-bottom: 20px;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+    border-radius: 2px;
+    animation: rainbow 3s ease infinite;
+}
+
+/* 分隔线炫酷效果 */
+hr {
+    border: none;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ff00ff, #00ffff, #ffff00, transparent);
+    margin: 40px 0;
+    border-radius: 2px;
+    animation: rainbow 3s ease infinite;
+}
+
+/* 加载动画 */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px) rotateX(10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotateX(0deg);
+    }
+}
+
+.post-preview {
+    animation: fadeInUp 0.8s ease-out;
+    transform-style: preserve-3d;
+}
+
+.post-preview:nth-child(1) { animation-delay: 0.1s; }
+.post-preview:nth-child(2) { animation-delay: 0.2s; }
+.post-preview:nth-child(3) { animation-delay: 0.3s; }
+.post-preview:nth-child(4) { animation-delay: 0.4s; }
+.post-preview:nth-child(5) { animation-delay: 0.5s; }
+
+/* 侧边栏炫酷效果 */
+.sidebar-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+}
+
+.sidebar-container h5 {
+    color: #ffffff;
+    font-weight: 700;
+    border-bottom: 2px solid #00ffff;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-container a {
+    color: rgba(255, 255, 255, 0.8) !important;
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin: 3px 0;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+}
+
+.sidebar-container a::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+}
+
+.sidebar-container a:hover::before {
+    left: 100%;
+}
+
+.sidebar-container a:hover {
+    color: #00ffff !important;
+    background: rgba(0, 255, 255, 0.1);
+    transform: translateX(8px);
+    text-shadow: 0 0 10px #00ffff;
+}
+
+/* 页脚炫酷效果 */
+footer {
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(20px);
+    color: white;
+    border-radius: 20px 20px 0 0;
+    margin-top: 40px;
+    border-top: 2px solid #00ffff;
+    position: relative;
+    overflow: hidden;
+}
+
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.1), transparent);
+    animation: footerGlow 4s ease infinite;
+}
+
+@keyframes footerGlow {
+    0%, 100% { left: -100%; }
+    50% { left: 100%; }
+}
+
+footer .copyright {
+    color: rgba(255, 255, 255, 0.8);
+    position: relative;
+    z-index: 1;
+}
+
+footer .copyright a {
+    color: #00ffff;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 10px #00ffff;
+}
+
+footer .copyright a:hover {
+    color: #ff00ff;
+    text-shadow: 0 0 15px #ff00ff;
+}
+
+/* 滚动条炫酷效果 */
+::-webkit-scrollbar {
+    width: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff00ff, #00ffff);
+    border-radius: 6px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(45deg, #00ffff, #ff00ff);
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .post-preview {
+        padding: 25px;
+        margin-bottom: 25px;
+    }
+    
+    .post-preview > a > .post-title {
+        font-size: 22px;
+    }
+    
+    .post-preview > a > .post-subtitle {
+        font-size: 14px;
+    }
+    
+    .post-content-preview {
+        font-size: 13px;
+    }
+    
+    .navbar-default .navbar-nav > li > a {
+        padding: 12px 15px;
+        border-radius: 8px;
+        margin: 3px 0;
+    }
+    
+    .navbar-default .navbar-nav > li > a:hover {
+        background: rgba(0, 255, 255, 0.2);
+    }
+    
+    .welcome-section {
+        padding: 40px 25px;
+        margin-bottom: 30px;
+    }
+    
+    .welcome-title {
+        font-size: 2.2em;
+    }
+    
+    .welcome-subtitle {
+        font-size: 1.1em;
+    }
+    
+    .welcome-stats {
+        gap: 20px;
+    }
+    
+    .stat-item {
+        padding: 12px 20px;
+        font-size: 0.9em;
+    }
+    
+    .section-title {
+        font-size: 2em;
+    }
+    
+    .container {
+        padding: 20px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+}
+
+/* 添加粒子背景到页面 */
+.particles-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* 霓虹灯文字效果 */
+.neon-text {
+    text-shadow: 
+        0 0 5px #fff,
+        0 0 10px #fff,
+        0 0 15px #0ff,
+        0 0 20px #0ff,
+        0 0 25px #0ff,
+        0 0 30px #0ff,
+        0 0 35px #0ff;
+    animation: neonPulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes neonPulse {
+    from { text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #0ff, 0 0 20px #0ff, 0 0 25px #0ff, 0 0 30px #0ff, 0 0 35px #0ff; }
+    to { text-shadow: 0 0 2px #fff, 0 0 5px #fff, 0 0 8px #0ff, 0 0 12px #0ff, 0 0 15px #0ff, 0 0 18px #0ff, 0 0 22px #0ff; }
+}
