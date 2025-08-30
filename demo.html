@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炫酷效果演示 - 博客网站</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    
+    <!-- 炫酷样式 -->
+    <link rel="stylesheet" href="css/custom-beauty.css">
+    
+    <!-- 演示页面专用样式 -->
+    <style>
+        .demo-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .demo-title {
+            font-size: 2.5em;
+            font-weight: 800;
+            text-align: center;
+            margin-bottom: 30px;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00);
+            background-size: 200% 200%;
+            animation: textGlow 2s ease infinite;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .effect-demo {
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .effect-demo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: #00ffff;
+        }
+        
+        .demo-button {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            margin: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .demo-button:hover::before {
+            left: 100%;
+        }
+        
+        .demo-button:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 0, 255, 0.5);
+        }
+        
+        .color-box {
+            width: 100px;
+            height: 100px;
+            margin: 10px;
+            border-radius: 15px;
+            display: inline-block;
+            animation: colorChange 3s ease infinite;
+        }
+        
+        @keyframes colorChange {
+            0% { background: #ff00ff; }
+            25% { background: #00ffff; }
+            50% { background: #ffff00; }
+            75% { background: #ff0080; }
+            100% { background: #ff00ff; }
+        }
+        
+        .floating-element {
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .typing-demo {
+            font-size: 1.5em;
+            color: #00ffff;
+            text-shadow: 0 0 10px #00ffff;
+            border-right: 2px solid #00ffff;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: #00ffff; }
+            51%, 100% { border-color: transparent; }
+        }
+    </style>
+</head>
+<body>
+    <!-- 粒子背景 -->
+    <div class="particles-bg">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="container">
+        <div class="demo-section">
+            <h1 class="demo-title neon-text">🎨 炫酷效果演示</h1>
+            <p class="text-center" style="color: white; font-size: 1.2em; margin-bottom: 30px;">
+                体验现代化博客网站的炫酷视觉效果
+            </p>
+        </div>
+
+        <!-- 动态背景效果 -->
+        <div class="demo-section">
+            <h2 class="neon-text">🌈 动态背景效果</h2>
+            <div class="effect-demo">
+                <p style="color: white;">这个页面使用了动态渐变背景，颜色会持续变化，创造出梦幻的视觉效果。</p>
+                <div class="color-box floating-element"></div>
+                <div class="color-box floating-element" style="animation-delay: 0.5s;"></div>
+                <div class="color-box floating-element" style="animation-delay: 1s;"></div>
+            </div>
+        </div>
+
+        <!-- 玻璃态效果 -->
+        <div class="demo-section">
+            <h2 class="neon-text">🔮 玻璃态效果</h2>
+            <div class="effect-demo">
+                <p style="color: white;">所有卡片都使用了毛玻璃效果，具有半透明背景和模糊效果，营造现代感。</p>
+                <div style="background: rgba(255, 255, 255, 0.1); backdrop-filter: blur(10px); padding: 20px; border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <p style="color: white; margin: 0;">这是一个玻璃态效果的示例</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 霓虹灯效果 -->
+        <div class="demo-section">
+            <h2 class="neon-text">💡 霓虹灯效果</h2>
+            <div class="effect-demo">
+                <p style="color: white;">标题使用了霓虹灯发光效果，文字会持续发光闪烁。</p>
+                <h3 class="neon-text" style="text-align: center;">霓虹灯文字效果</h3>
+            </div>
+        </div>
+
+        <!-- 3D变换效果 -->
+        <div class="demo-section">
+            <h2 class="neon-text">🎯 3D变换效果</h2>
+            <div class="effect-demo">
+                <p style="color: white;">将鼠标悬停在下面的卡片上，体验3D倾斜和翻转效果。</p>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 30px; border-radius: 15px; border: 1px solid rgba(255, 255, 255, 0.2); transition: all 0.4s ease; transform-style: preserve-3d;" onmouseover="this.style.transform='translateY(-10px) rotateX(5deg) rotateY(5deg)'" onmouseout="this.style.transform='translateY(0) rotateX(0) rotateY(0)'">
+                    <h4 style="color: #00ffff; text-align: center;">悬停我体验3D效果</h4>
+                    <p style="color: white; text-align: center; margin: 0;">鼠标悬停时会有3D倾斜效果</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- 交互动画 -->
+        <div class="demo-section">
+            <h2 class="neon-text">🎮 交互动画</h2>
+            <div class="effect-demo">
+                <p style="color: white;">点击下面的按钮体验波纹扩散效果和悬停动画。</p>
+                <div style="text-align: center;">
+                    <button class="demo-button">炫酷按钮 1</button>
+                    <button class="demo-button">炫酷按钮 2</button>
+                    <button class="demo-button">炫酷按钮 3</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 打字机效果 -->
+        <div class="demo-section">
+            <h2 class="neon-text">⌨️ 打字机效果</h2>
+            <div class="effect-demo">
+                <p style="color: white;">下面的文字会以打字机效果逐字显示。</p>
+                <div class="typing-demo" id="typing-text"></div>
+            </div>
+        </div>
+
+        <!-- 性能优化说明 -->
+        <div class="demo-section">
+            <h2 class="neon-text">⚡ 性能优化</h2>
+            <div class="effect-demo">
+                <p style="color: white;">网站具有智能性能监控，会自动检测设备性能并优化动画效果：</p>
+                <ul style="color: white;">
+                    <li>自动检测FPS并调整动画复杂度</li>
+                    <li>低端设备自动降低动画效果</li>
+                    <li>网络状况自适应优化</li>
+                    <li>内存使用自动管理</li>
+                    <li>支持用户减少动画偏好</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 键盘快捷键 -->
+        <div class="demo-section">
+            <h2 class="neon-text">⌨️ 键盘快捷键</h2>
+            <div class="effect-demo">
+                <p style="color: white;">尝试使用以下键盘快捷键：</p>
+                <ul style="color: white;">
+                    <li><strong>空格键</strong> - 暂停/恢复粒子动画</li>
+                    <li><strong>Ctrl + K</strong> - 打开搜索（预留功能）</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 回到主页 -->
+        <div class="demo-section" style="text-align: center;">
+            <a href="index.html" class="demo-button" style="text-decoration: none; display: inline-block;">
+                🏠 回到主页
+            </a>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="js/custom-effects.js"></script>
+    <script src="js/performance-optimization.js"></script>
+    
+    <script>
+        // 打字机效果
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // 页面加载完成后启动打字机效果
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                typeWriter(document.getElementById('typing-text'), '欢迎体验这个炫酷的博客网站！', 150);
+            }, 1000);
+        });
+
+        // 添加一些额外的交互效果
+        document.querySelectorAll('.demo-button').forEach(button => {
+            button.addEventListener('click', function(e) {
+                // 创建波纹效果
+                const ripple = document.createElement('div');
+                ripple.style.cssText = `
+                    position: absolute;
+                    width: 0;
+                    height: 0;
+                    border-radius: 50%;
+                    background: radial-gradient(circle, rgba(255, 255, 255, 0.6) 0%, transparent 70%);
+                    transform: translate(-50%, -50%);
+                    pointer-events: none;
+                    animation: rippleExpand 0.6s ease-out;
+                `;
+                
+                const rect = this.getBoundingClientRect();
+                ripple.style.left = (e.clientX - rect.left) + 'px';
+                ripple.style.top = (e.clientY - rect.top) + 'px';
+                
+                this.appendChild(ripple);
+                
+                setTimeout(() => {
+                    if (ripple.parentNode) {
+                        ripple.parentNode.removeChild(ripple);
+                    }
+                }, 600);
+            });
+        });
+    </script>
+</body>
+</html>
