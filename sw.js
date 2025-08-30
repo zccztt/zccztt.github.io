@@ -1,148 +1,241 @@
-/* ===========================================================
- * sw.js
- * ===========================================================
- * Copyright 2016 @huxpro
- * Licensed under Apache 2.0 
- * Register service worker.
- * ========================================================== */
+// Service Worker for caching and offline support
 
-const PRECACHE = 'precache-v1';
-const RUNTIME = 'runtime';
-const HOSTNAME_WHITELIST = [
-  self.location.hostname,
-  "huangxuan.me",
-  "yanshuo.io",
-  "cdnjs.cloudflare.com"
-]
+const CACHE_NAME = 'ztt-blog-v1.0.0';
+const STATIC_CACHE = 'static-v1.0.0';
+const DYNAMIC_CACHE = 'dynamic-v1.0.0';
 
+// 需要缓存的静态资源
+const STATIC_ASSETS = [
+    '/',
+    '/css/bootstrap.min.css',
+    '/css/hux-blog.min.css',
+    '/css/custom-beauty.css',
+    '/css/accessibility.css',
+    '/css/syntax.css',
+    '/js/bootstrap.min.js',
+    '/js/hux-blog.min.js',
+    '/js/custom-effects.js',
+    '/js/performance-optimization.js',
+    '/img/favicon.ico',
+    '/img/apple-touch-icon.png'
+];
 
-// The Util Function to hack URLs of intercepted requests
-const getFixedUrl = (req) => {
-  var now = Date.now();
-  url = new URL(req.url)
+// 需要缓存的动态资源
+const DYNAMIC_ASSETS = [
+    '/about.html',
+    '/tags.html',
+    '/404.html'
+];
 
-  // 1. fixed http URL
-  // Just keep syncing with location.protocol 
-  // fetch(httpURL) belongs to active mixed content. 
-  // And fetch(httpRequest) is not supported yet.
-  url.protocol = self.location.protocol
-
-  // 2. add query for caching-busting.
-  // Github Pages served with Cache-Control: max-age=600
-  // max-age on mutable content is error-prone, with SW life of bugs can even extend.
-  // Until cache mode of Fetch API landed, we have to workaround cache-busting with query string.
-  // Cache-Control-Bug: https://bugs.chromium.org/p/chromium/issues/detail?id=453190
-  url.search += (url.search ? '&' : '?') + 'cache-bust=' + now;
-  return url.href
-}
-
-// The Util Function to detect and polyfill req.mode="navigate"
-// request.mode of 'navigate' is unfortunately not supported in Chrome
-// versions older than 49, so we need to include a less precise fallback,
-// which checks for a GET request with an Accept: text/html header.
-const isNavigationReq = (req) => (req.mode === 'navigate' || (req.method === 'GET' && req.headers.get('accept').includes('text/html')))
-
-// The Util Function to detect if a req is end with extension
-// Accordin to Fetch API spec <https://fetch.spec.whatwg.org/#concept-request-destination>
-// Any HTML's navigation has consistently mode="navigate" type="" and destination="document" 
-// including requesting an img (or any static resources) from URL Bar directly.
-// So It ends up with that regExp is still the king of URL routing ;)
-// P.S. An url.pathname has no '.' can not indicate it ends with extension (e.g. /api/version/1.2/)
-const endWithExtension = (req) => Boolean(new URL(req.url).pathname.match(/\.\w+$/))
-
-// Redirect in SW manually fixed github pages arbitray 404s on things?blah 
-// what we want:
-//    repo?blah -> !(gh 404) -> sw 302 -> repo/?blah 
-//    .ext?blah -> !(sw 302 -> .ext/?blah -> gh 404) -> .ext?blah 
-// If It's a navigation req and it's url.pathname isn't end with '/' or '.ext'
-// it should be a dir/repo request and need to be fixed (a.k.a be redirected)
-// Tracking https://twitter.com/Huxpro/status/798816417097224193
-const shouldRedirect = (req) => (isNavigationReq(req) && new URL(req.url).pathname.substr(-1) !== "/" && !endWithExtension(req))
-
-// The Util Function to get redirect URL
-// `${url}/` would mis-add "/" in the end of query, so we use URL object.
-// P.P.S. Always trust url.pathname instead of the whole url string.
-const getRedirectUrl = (req) => {
-  url = new URL(req.url)
-  url.pathname += "/"
-  return url.href
-}
-
-/**
- *  @Lifecycle Install
- *  Precache anything static to this version of your app.
- *  e.g. App Shell, 404, JS/CSS dependencies...
- *
- *  waitUntil() : installing ====> installed
- *  skipWaiting() : waiting(installed) ====> activating
- */
-self.addEventListener('install', e => {
-  e.waitUntil(
-    caches.open(PRECACHE).then(cache => {
-      return cache.add('offline.html')
-      .then(self.skipWaiting())
-      .catch(err => console.log(err))
-    })
-  )
-});
-
-
-/**
- *  @Lifecycle Activate
- *  New one activated when old isnt being used.
- *
- *  waitUntil(): activating ====> activated
- */
-self.addEventListener('activate',  event => {
-  console.log('service worker activated.')
-  event.waitUntil(self.clients.claim());
-});
-
-
-/**
- *  @Functional Fetch
- *  All network requests are being intercepted here.
- * 
- *  void respondWith(Promise<Response> r);
- */
-self.addEventListener('fetch', event => {
-  // logs for debugging
-  console.log(`fetch ${event.request.url}`)
-  //console.log(` - type: ${event.request.type}; destination: ${event.request.destination}`)
-  //console.log(` - mode: ${event.request.mode}, accept: ${event.request.headers.get('accept')}`)
-
-  // Skip some of cross-origin requests, like those for Google Analytics.
-  if (HOSTNAME_WHITELIST.indexOf(new URL(event.request.url).hostname) > -1) {
+// 安装事件
+self.addEventListener('install', event => {
+    console.log('Service Worker installing...');
     
-    // Redirect in SW manually fixed github pages 404s on repo?blah 
-    if(shouldRedirect(event.request)){
-      event.respondWith(Response.redirect(getRedirectUrl(event.request)))
-      return;
-    }
-
-    // Stale-while-revalidate 
-    // similar to HTTP's stale-while-revalidate: https://www.mnot.net/blog/2007/12/12/stale
-    // Upgrade from Jake's to Surma's: https://gist.github.com/surma/eb441223daaedf880801ad80006389f1
-    const cached = caches.match(event.request);
-    const fixedUrl = getFixedUrl(event.request);
-    const fetched = fetch(fixedUrl, {cache: "no-store"});
-    const fetchedCopy = fetched.then(resp => resp.clone());
-
-    // Call respondWith() with whatever we get first.
-    // If the fetch fails (e.g disconnected), wait for the cache.
-    // If there’s nothing in cache, wait for the fetch. 
-    // If neither yields a response, return offline pages.
-    event.respondWith(
-      Promise.race([fetched.catch(_ => cached), cached])
-        .then(resp => resp || fetched)
-        .catch(_ => caches.match('offline.html'))
-    );
-
-    // Update the cache with the version we fetched (only for ok status)
     event.waitUntil(
-      Promise.all([fetchedCopy, caches.open(RUNTIME)])
-        .then(([response, cache]) => response.ok && cache.put(event.request, response))
-        .catch(_ => {/* eat any errors */})
+        caches.open(STATIC_CACHE)
+            .then(cache => {
+                console.log('Caching static assets');
+                return cache.addAll(STATIC_ASSETS);
+            })
+            .then(() => {
+                console.log('Static assets cached successfully');
+                return self.skipWaiting();
+            })
+            .catch(error => {
+                console.error('Error caching static assets:', error);
+            })
     );
-  }
+});
+
+// 激活事件
+self.addEventListener('activate', event => {
+    console.log('Service Worker activating...');
+    
+    event.waitUntil(
+        caches.keys()
+            .then(cacheNames => {
+                return Promise.all(
+                    cacheNames.map(cacheName => {
+                        if (cacheName !== STATIC_CACHE && cacheName !== DYNAMIC_CACHE) {
+                            console.log('Deleting old cache:', cacheName);
+                            return caches.delete(cacheName);
+                        }
+                    })
+                );
+            })
+            .then(() => {
+                console.log('Service Worker activated');
+                return self.clients.claim();
+            })
+    );
+});
+
+// 获取事件
+self.addEventListener('fetch', event => {
+    const { request } = event;
+    const url = new URL(request.url);
+    
+    // 跳过非GET请求
+    if (request.method !== 'GET') {
+        return;
+    }
+    
+    // 跳过第三方资源
+    if (url.origin !== self.location.origin) {
+        return;
+    }
+    
+    // 跳过API请求
+    if (url.pathname.startsWith('/api/')) {
+        return;
+    }
+    
+    event.respondWith(
+        caches.match(request)
+            .then(response => {
+                // 如果缓存中有响应，返回缓存的响应
+                if (response) {
+                    return response;
+                }
+                
+                // 否则从网络获取
+                return fetch(request)
+                    .then(networkResponse => {
+                        // 检查响应是否有效
+                        if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
+                            return networkResponse;
+                        }
+                        
+                        // 克隆响应
+                        const responseToCache = networkResponse.clone();
+                        
+                        // 根据资源类型选择缓存策略
+                        if (isStaticAsset(request.url)) {
+                            // 静态资源：缓存到静态缓存
+                            caches.open(STATIC_CACHE)
+                                .then(cache => {
+                                    cache.put(request, responseToCache);
+                                });
+                        } else if (isDynamicAsset(request.url)) {
+                            // 动态资源：缓存到动态缓存
+                            caches.open(DYNAMIC_CACHE)
+                                .then(cache => {
+                                    cache.put(request, responseToCache);
+                                });
+                        }
+                        
+                        return networkResponse;
+                    })
+                    .catch(error => {
+                        console.error('Fetch failed:', error);
+                        
+                        // 如果是HTML页面，返回离线页面
+                        if (request.headers.get('accept').includes('text/html')) {
+                            return caches.match('/offline.html');
+                        }
+                        
+                        // 如果是图片，返回默认图片
+                        if (request.headers.get('accept').includes('image/')) {
+                            return caches.match('/img/404-bg.jpg');
+                        }
+                        
+                        throw error;
+                    });
+            })
+    );
+});
+
+// 判断是否为静态资源
+function isStaticAsset(url) {
+    const staticExtensions = ['.css', '.js', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.woff', '.woff2', '.ttf', '.eot'];
+    return staticExtensions.some(ext => url.includes(ext));
+}
+
+// 判断是否为动态资源
+function isDynamicAsset(url) {
+    return url.includes('.html') || url.includes('/posts/');
+}
+
+// 后台同步
+self.addEventListener('sync', event => {
+    console.log('Background sync:', event.tag);
+    
+    if (event.tag === 'background-sync') {
+        event.waitUntil(doBackgroundSync());
+    }
+});
+
+// 后台同步任务
+function doBackgroundSync() {
+    // 这里可以添加后台同步逻辑
+    console.log('Performing background sync...');
+    return Promise.resolve();
+}
+
+// 推送通知
+self.addEventListener('push', event => {
+    console.log('Push notification received');
+    
+    const options = {
+        body: event.data ? event.data.text() : 'New content available!',
+        icon: '/img/apple-touch-icon.png',
+        badge: '/img/apple-touch-icon.png',
+        vibrate: [100, 50, 100],
+        data: {
+            dateOfArrival: Date.now(),
+            primaryKey: 1
+        },
+        actions: [
+            {
+                action: 'explore',
+                title: 'View',
+                icon: '/img/apple-touch-icon.png'
+            },
+            {
+                action: 'close',
+                title: 'Close',
+                icon: '/img/apple-touch-icon.png'
+            }
+        ]
+    };
+    
+    event.waitUntil(
+        self.registration.showNotification('ZTT\'s Blog', options)
+    );
+});
+
+// 通知点击事件
+self.addEventListener('notificationclick', event => {
+    console.log('Notification clicked');
+    
+    event.notification.close();
+    
+    if (event.action === 'explore') {
+        event.waitUntil(
+            clients.openWindow('/')
+        );
+    }
+});
+
+// 消息事件
+self.addEventListener('message', event => {
+    console.log('Message received:', event.data);
+    
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
+    
+    if (event.data && event.data.type === 'GET_VERSION') {
+        event.ports[0].postMessage({ version: CACHE_NAME });
+    }
+});
+
+// 错误处理
+self.addEventListener('error', event => {
+    console.error('Service Worker error:', event.error);
+});
+
+// 未处理的Promise拒绝
+self.addEventListener('unhandledrejection', event => {
+    console.error('Unhandled promise rejection:', event.reason);
 });
