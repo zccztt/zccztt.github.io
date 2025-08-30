@@ -1,25 +1,163 @@
----
-layout: default
-description: "网络似乎出现了问题 😥"
-header-img: "img/404-bg.jpg"
-permalink: /offline.html
----
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>离线 - ZTT's Blog</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .offline-container {
+            background: white;
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+        
+        .offline-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+        }
+        
+        .offline-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .offline-message {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .retry-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .retry-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+        }
+        
+        .cached-content {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .cached-content h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .cached-links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .cached-links a {
+            color: #667eea;
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .cached-links a:hover {
+            background-color: rgba(102, 126, 234, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .offline-container {
+                padding: 30px 20px;
+            }
+            
+            .offline-title {
+                font-size: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="offline-container">
+        <div class="offline-icon">📡</div>
+        <h1 class="offline-title">网络连接不可用</h1>
+        <p class="offline-message">
+            看起来您当前处于离线状态。请检查您的网络连接，然后重试。
+        </p>
+        
+        <button class="retry-button" onclick="retryConnection()">
+            重新连接
+        </button>
+        
+        <div class="cached-content">
+            <h3>您可以访问以下缓存的内容：</h3>
+            <div class="cached-links">
+                <a href="/" onclick="checkConnection(event)">首页</a>
+                <a href="/about.html" onclick="checkConnection(event)">关于</a>
+                <a href="/tags.html" onclick="checkConnection(event)">标签</a>
+            </div>
+        </div>
+    </div>
 
-
-<!-- Page Header -->
-<header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-				<div class="site-heading" id="tag-heading">
-					<h1>Offline</h1>
-					<span class="subheading">{{ page.description }}</span>
-				</div>
-			</div>
-		</div>
-	</div>
-</header>
-
-<script>
-	document.body.classList.add('page-fullscreen');
-</script>
+    <script>
+        // 检查网络连接状态
+        function checkConnection(event) {
+            if (!navigator.onLine) {
+                event.preventDefault();
+                alert('您当前处于离线状态，无法访问此页面。');
+                return false;
+            }
+            return true;
+        }
+        
+        // 重试连接
+        function retryConnection() {
+            if (navigator.onLine) {
+                window.location.reload();
+            } else {
+                alert('网络连接仍然不可用，请检查您的网络设置。');
+            }
+        }
+        
+        // 监听网络状态变化
+        window.addEventListener('online', function() {
+            window.location.reload();
+        });
+        
+        window.addEventListener('offline', function() {
+            console.log('网络连接已断开');
+        });
+        
+        // 定期检查连接状态
+        setInterval(function() {
+            if (navigator.onLine) {
+                window.location.reload();
+            }
+        }, 5000);
+    </script>
+</body>
+</html>
